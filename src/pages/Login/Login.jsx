@@ -1,7 +1,12 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
+import { Link } from "react-router-dom";
+
 
 const Login = () => {
-     const { register, handleSubmit, watch, formState: { errors } } = useForm();
+     const [toggle, setToggle] = useState(false)
+     const { register, handleSubmit, formState: { errors } } = useForm();
      const onSubmit = data => {
           console.log(data)
      };
@@ -22,14 +27,27 @@ const Login = () => {
                                    {errors.email && <span>This field is required</span>}
                               </div>
                               <div className="form-control">
+
                                    <label className="label">
                                         <span className="label-text">Password</span>
                                    </label>
-                                   <input type="password" {...register("password", { required: true })} placeholder="password" className="input input-bordered" />
+                                   <div className="flex justify-between items-center border-2 py-4 rounded-lg px-4">
+                                        <input type={toggle ? 'text' : 'password'} {...register("password", { required: true })} placeholder="password" style={{ border: 'none', outline: 'none' }} />
+                                        <span onClick={() => setToggle(!toggle)}>
+                                             {toggle ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}
+                                        </span>
+                                   </div>
                                    {errors.password && <span>This field is required</span>}
                               </div>
+                              <p>New to this website? <Link className="text-blue-500" to='/signup'>Register</Link></p>
                               <div className="form-control mt-6">
                                    <button className="btn btn-primary">Login</button>
+                              </div>
+                              <div className="divider">OR</div>
+                              <div className="text-center">
+                              <button className="btn btn-circle btn-outline">
+                                   <FaGoogle></FaGoogle>
+                              </button>
                               </div>
                          </form>
                     </div>
