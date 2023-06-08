@@ -1,12 +1,21 @@
 import { Link } from "react-router-dom";
+import useAuth from "../../Hocks/useAuth";
 
 const Navbar = () => {
+     const { user, logOut } = useAuth();
+     console.log(user);
      const navItem = <>
           <li><Link to='/'>Home</Link></li>
           <li><Link to='/instructors'>Instructors</Link></li>
           <li><Link to='/classes'>Classes</Link></li>
-          <li><Link to='/dashboard'>Dashboard</Link></li>
+          {
+               user && <li><Link to='/dashboard'>Dashboard</Link></li>
+          }
      </>
+     const handleLogOut = () => {
+          logOut()
+     }
+
      return (
           <>
                <div className="navbar">
@@ -28,12 +37,20 @@ const Navbar = () => {
                     </div>
                     <div className="navbar-end">
                          <div className="dropdown dropdown-end flex justify-center items-center">
-                              <button className="btn btn-ghost">Log Out</button>
-                              <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                                   <div className="w-10 rounded-full">
-                                        <img src={''} />
-                                   </div>
-                              </label>
+                              {user ?
+                                   <>
+                                        <button onClick={handleLogOut} className="btn btn-ghost">Log Out</button>
+                                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                                             <div className="w-10 rounded-full">
+                                                  <img src={user?.photoURL} />
+                                             </div>
+                                        </label>
+                                   </> :
+                                   <>
+                                        <Link to='/login'><button className="btn btn-ghost">Login</button></Link>
+
+                                   </>
+                              }
                          </div>
 
                     </div>

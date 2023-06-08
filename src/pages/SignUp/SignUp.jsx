@@ -1,14 +1,53 @@
 import { useForm } from "react-hook-form";
 import { FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../../Hocks/useAuth";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
+     const { signInUser, updateUser, googleSignIn } = useAuth();
      const { register, handleSubmit, watch, formState: { errors } } = useForm();
+     const navigate = useNavigate()
+     const location = useLocation();
+     const from = location.state?.from?.pathname || "/";
+
      const onSubmit = data => {
           console.log(data)
+          signInUser(data.email, data.password)
+               .then((result) => {
+                    console.log(result.user);
+                    Swal.fire({
+                         position: 'top-end',
+                         icon: 'success',
+                         title: 'sign up successful',
+                         showConfirmButton: false,
+                         timer: 1500
+                    })
+                    updateUser(data.name, data.photo)
+                         .then()
+                    navigate('/login')
+               })
      };
-
      const password = watch('password');
+
+     const handleGoogleSignIn = () => {
+          googleSignIn()
+               .then(result => {
+                    const loggedUser = result.user;
+                    console.log(loggedUser);
+                    Swal.fire({
+                         position: 'top-end',
+                         icon: 'success',
+                         title: 'sign up successful',
+                         showConfirmButton: false,
+                         timer: 1500
+                    })
+                    navigate(from, {replace : true})
+               })
+               .then(error => {
+                    console.log(error.message);
+               })
+     }
      return (
           <div className="hero min-h-screen bg-base-200">
                <div className="hero-content flex-col lg:flex-row-reverse">
@@ -18,6 +57,22 @@ const SignUp = () => {
                     </div>
                     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                          <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+                              <div className="form-control">
+                                   <label className="label">
+                                        <span className="label-text">Name</span>
+                                   </label>
+                                   <input type="text" {...register("name", { required: true })} placeholder="Name" className="input input-bordered" />
+                                   {errors.name && <span className="text-red-500">This field is required</span>}
+                              </div>
+
+                              <div className="form-control">
+                                   <label className="label">
+                                        <span className="label-text">PhotoURL</span>
+                                   </label>
+                                   <input type="text" {...register("photo", { required: true })} placeholder="PhotoURL" className="input input-bordered" />
+                                   {errors.photo && <span className="text-red-500">This field is required</span>}
+                              </div>
+
                               <div className="form-control">
                                    <label className="label">
                                         <span className="label-text">Email</span>
@@ -67,12 +122,13 @@ const SignUp = () => {
                                    <button className="btn btn-primary">SignUp</button>
                               </div>
                               <div className="divider">OR</div>
-                              <div className="text-center">
-                                   <button className="btn btn-circle btn-outline">
-                                        <FaGoogle></FaGoogle>
-                                   </button>
-                              </div>
+
                          </form>
+                         <div className="text-center mb-10">
+                              <button onClick={handleGoogleSignIn} className="btn btn-circle btn-outline">
+                                   <FaGoogle></FaGoogle>
+                              </button>
+                         </div>
                     </div>
                </div>
           </div>

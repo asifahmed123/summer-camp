@@ -1,15 +1,67 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../../Hocks/useAuth";
+import Swal from "sweetalert2";
 
 
 const Login = () => {
-     const [toggle, setToggle] = useState(false)
+     const { loginUser, googleSignIn } = useAuth()
+     const [toggle, setToggle] = useState(false);
+     const [error, setError] = useState('');
+     console.log(error);
      const { register, handleSubmit, formState: { errors } } = useForm();
+
+     const location = useLocation();
+     const navigate = useNavigate();
+
+     const from = location.state?.from?.pathname || "/";
+
      const onSubmit = data => {
           console.log(data)
+          loginUser(data.email, data.password)
+               .then(result => {
+                    const loggedUser = result.user;
+                    console.log(loggedUser);
+                    Swal.fire({
+                         title: 'Login successful...',
+                         showClass: {
+                              popup: 'animate__animated animate__fadeInDown'
+                         },
+                         hideClass: {
+                              popup: 'animate__animated animate__fadeOutUp'
+                         }
+                    })
+                    navigate(from, { replace: true });
+               })
+               .then(error => {
+                    // console.log(error.message);
+                    setError(error.message)
+               })
      };
+
+     const handleGoogleSignIn = () => {
+          googleSignIn()
+               .then(result => {
+                    const loggedUser = result.user;
+                    console.log(loggedUser);
+                    Swal.fire({
+                         title: 'Login successful...',
+                         showClass: {
+                              popup: 'animate__animated animate__fadeInDown'
+                         },
+                         hideClass: {
+                              popup: 'animate__animated animate__fadeOutUp'
+                         }
+                    })
+                    navigate(from, { replace: true });
+               })
+               .then(error => {
+                    // console.log(error.message);
+                    setError(error.message)
+               })
+     }
      return (
           <div className="hero min-h-screen bg-base-200">
                <div className="hero-content flex-col lg:flex-row-reverse">
@@ -40,16 +92,18 @@ const Login = () => {
                                    {errors.password && <span>This field is required</span>}
                               </div>
                               <p>New to this website? <Link className="text-blue-500" to='/signup'>Register</Link></p>
+                              <p className="text-red-500">{error}</p>
                               <div className="form-control mt-6">
                                    <button className="btn btn-primary">Login</button>
                               </div>
-                              <div className="divider">OR</div>
-                              <div className="text-center">
-                              <button className="btn btn-circle btn-outline">
+
+                         </form>
+                         <div className="divider">OR</div>
+                         <div className="text-center mb-10">
+                              <button onClick={handleGoogleSignIn} className="btn btn-circle btn-outline">
                                    <FaGoogle></FaGoogle>
                               </button>
-                              </div>
-                         </form>
+                         </div>
                     </div>
                </div>
           </div>
