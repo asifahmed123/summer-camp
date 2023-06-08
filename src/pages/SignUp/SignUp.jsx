@@ -92,7 +92,7 @@ const SignUp = () => {
                                         pattern: /(?=.*[A-Z])(?=.*[@$!%*?&])(?=.*?[0-9])/
                                    })} placeholder="password" className="input input-bordered" />
 
-                                   {errors.password && <span className="text-red-500">This field is required</span>}
+                                   {errors.password?.type === 'required' && <span className="text-red-500">This field is required</span>}
 
                                    {errors.password?.type === 'minLength' && <span className="text-red-500">Password should be greater than 6 character</span>}
 
@@ -112,7 +112,7 @@ const SignUp = () => {
                                              value === password || "Passwords do not match"
                                    })} placeholder="Confirm password" className="input input-bordered" />
 
-                                   {errors.confirmPassword && <span className="text-red-500">This field is required</span>}
+                                   {errors.confirmPassword?.type === 'required' && <span className="text-red-500">This field is required</span>}
                                    {errors.confirmPassword && (
                                         <span className="text-red-500">{errors.confirmPassword.message}</span>
                                    )}
