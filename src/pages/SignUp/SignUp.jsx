@@ -16,16 +16,37 @@ const SignUp = () => {
           signInUser(data.email, data.password)
                .then((result) => {
                     console.log(result.user);
-                    Swal.fire({
-                         position: 'top-end',
-                         icon: 'success',
-                         title: 'sign up successful',
-                         showConfirmButton: false,
-                         timer: 1500
-                    })
                     updateUser(data.name, data.photo)
-                         .then()
-                    navigate('/login')
+                         .then(() => {
+                              const savedUser = { name: data.name, email: data.email }
+
+                              fetch('http://localhost:5000/users', {
+                                   method: 'POST',
+                                   headers: {
+                                        'content-type': 'application/json'
+                                   },
+                                   body: JSON.stringify(savedUser)
+                              })
+                                   .then(res => res.json())
+                                   .then(data => {
+                                        console.log(data);
+                                        if (data.insertedId) {
+                                             Swal.fire({
+                                                  position: 'top-end',
+                                                  icon: 'success',
+                                                  title: 'sign up successful',
+                                                  showConfirmButton: false,
+                                                  timer: 1500
+                                             })
+                                             navigate('/login')
+                                        }
+                                   })
+
+                         })
+                         .catch(error => {
+                              console.log(error.message);
+                         })
+
                })
      };
      const password = watch('password');
@@ -42,7 +63,7 @@ const SignUp = () => {
                          showConfirmButton: false,
                          timer: 1500
                     })
-                    navigate(from, {replace : true})
+                    navigate(from, { replace: true })
                })
                .then(error => {
                     console.log(error.message);
