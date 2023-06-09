@@ -46,22 +46,32 @@ const Login = () => {
                .then(result => {
                     const loggedUser = result.user;
                     console.log(loggedUser);
-                    Swal.fire({
-                         title: 'Login successful...',
-                         showClass: {
-                              popup: 'animate__animated animate__fadeInDown'
+                    const savedUser = { name: loggedUser.displayName, email: loggedUser.email }
+                    fetch('http://localhost:5000/users', {
+                         method: 'POST',
+                         headers: {
+                              'content-type': 'application/json'
                          },
-                         hideClass: {
-                              popup: 'animate__animated animate__fadeOutUp'
-                         }
+                         body: JSON.stringify(savedUser)
                     })
-                    navigate(from, { replace: true });
+                         .then(res => res.json())
+                         .then(data => {
+                              console.log(data);
+                         })
+                    Swal.fire({
+                         position: 'top-end',
+                         icon: 'success',
+                         title: 'sign up successful',
+                         showConfirmButton: false,
+                         timer: 1500
+                    })
+                    navigate(from, { replace: true })
                })
                .then(error => {
-                    // console.log(error.message);
-                    setError(error.message)
+                    console.log(error.message);
                })
      }
+     
      return (
           <div className="hero min-h-screen bg-base-200">
                <div className="hero-content flex-col lg:flex-row-reverse">

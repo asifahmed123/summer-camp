@@ -8,6 +8,10 @@ import StudentClasses from "../pages/DashBoard/StudentDashboard/StudentClasses";
 import EnrolledClasses from "../pages/DashBoard/StudentDashboard/EnrolledClasses";
 import PaymentHistory from "../pages/DashBoard/StudentDashboard/PaymentHistory";
 import Classes from "../pages/Classes/Classes";
+import ManageUsers from "../pages/DashBoard/AdminDashboard/ManageUsers";
+import ManageClasses from "../pages/DashBoard/AdminDashboard/ManageClasses";
+import AddClass from "../pages/DashBoard/InstructorDashboard/AddClass";
+import InstructorClasses from "../pages/DashBoard/InstructorDashboard/InstructorClasses";
 
 export const router = createBrowserRouter([
      {
@@ -47,6 +51,24 @@ export const router = createBrowserRouter([
                {
                     path: 'paymenthistory',
                     element: <PaymentHistory></PaymentHistory>
+               },
+               // admin routes //
+               {
+                    path: 'manageusers',
+                    element: <ManageUsers></ManageUsers>
+               },
+               {
+                    path: 'manageclasses',
+                    element: <ManageClasses></ManageClasses>
+               },
+               // instructors routes //
+               {
+                    path: 'addclass',
+                    element: <AddClass></AddClass>
+               },
+               {
+                    path: 'instructorclasses',
+                    element: <InstructorClasses></InstructorClasses>
                }
           ]
      }

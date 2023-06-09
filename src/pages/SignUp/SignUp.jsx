@@ -3,10 +3,12 @@ import { FaGoogle } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../Hocks/useAuth";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 const SignUp = () => {
      const { signInUser, updateUser, googleSignIn } = useAuth();
      const { register, handleSubmit, watch, formState: { errors } } = useForm();
+     const [error, setError] = useState('');
      const navigate = useNavigate()
      const location = useLocation();
      const from = location.state?.from?.pathname || "/";
@@ -45,6 +47,7 @@ const SignUp = () => {
                          })
                          .catch(error => {
                               console.log(error.message);
+                              setError(error.message)
                          })
 
                })
@@ -56,6 +59,18 @@ const SignUp = () => {
                .then(result => {
                     const loggedUser = result.user;
                     console.log(loggedUser);
+                    const savedUser = { name: loggedUser.displayName, email: loggedUser.email }
+                    fetch('http://localhost:5000/users', {
+                         method: 'POST',
+                         headers: {
+                              'content-type': 'application/json'
+                         },
+                         body: JSON.stringify(savedUser)
+                    })
+                         .then(res => res.json())
+                         .then(data => {
+                              console.log(data);
+                         })
                     Swal.fire({
                          position: 'top-end',
                          icon: 'success',
@@ -69,6 +84,7 @@ const SignUp = () => {
                     console.log(error.message);
                })
      }
+
      return (
           <div className="hero min-h-screen bg-base-200">
                <div className="hero-content flex-col lg:flex-row-reverse">
@@ -139,6 +155,7 @@ const SignUp = () => {
                                    )}
                               </div>
                               <p>Already have an account? <Link className="text-blue-500" to='/login'>Login</Link></p>
+                              <p>{error}</p>
                               <div className="form-control mt-6">
                                    <button className="btn btn-primary">SignUp</button>
                               </div>
