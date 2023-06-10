@@ -2,11 +2,12 @@ import { NavLink, Outlet } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import Navbar from "../Shared/Navbar/Navbar";
 import Footer from "../Shared/Footer/Footer";
+import useAdmin from "../Hocks/useAdmin";
 
 
 const Dashboard = () => {
 
-     const isAdmin = true;
+     const [isAdmin] = useAdmin();
      const isInstructor = true;
      return (
           <>

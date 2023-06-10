@@ -12,6 +12,7 @@ import ManageUsers from "../pages/DashBoard/AdminDashboard/ManageUsers";
 import ManageClasses from "../pages/DashBoard/AdminDashboard/ManageClasses";
 import AddClass from "../pages/DashBoard/InstructorDashboard/AddClass";
 import InstructorClasses from "../pages/DashBoard/InstructorDashboard/InstructorClasses";
+import Instructors from "../pages/Instructors/Instructors";
 
 export const router = createBrowserRouter([
      {
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
                {
                     path: 'classes',
                     element: <Classes></Classes>
+               },
+               {
+                    path: 'instructors',
+                    element: <Instructors></Instructors>
                }
           ]
      },

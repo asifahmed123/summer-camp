@@ -20,7 +20,7 @@ const SignUp = () => {
                     console.log(result.user);
                     updateUser(data.name, data.photo)
                          .then(() => {
-                              const savedUser = { name: data.name, email: data.email }
+                              const savedUser = { name: data.name, email: data.email, photo: data.photo}
 
                               fetch('http://localhost:5000/users', {
                                    method: 'POST',
@@ -59,7 +59,7 @@ const SignUp = () => {
                .then(result => {
                     const loggedUser = result.user;
                     console.log(loggedUser);
-                    const savedUser = { name: loggedUser.displayName, email: loggedUser.email }
+                    const savedUser = { name: loggedUser.displayName, email: loggedUser.email, photo: loggedUser.photoURL }
                     fetch('http://localhost:5000/users', {
                          method: 'POST',
                          headers: {
