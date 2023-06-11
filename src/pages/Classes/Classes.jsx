@@ -5,7 +5,7 @@ import Card from "./Card";
 const Classes = () => {
      
      const [axiosSecure] = useAxiosSecure();
-     const { data: classes = [], refetch } = useQuery({
+     const { data: classes = [] } = useQuery({
           queryKey: ['classes'],
           queryFn: async () => {
                const res = await axiosSecure.get('/classes')
@@ -18,7 +18,7 @@ const Classes = () => {
      return (
           <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-6">
                {
-                    classes.map(item => <Card key={item._id} item={item}></Card>)
+                    classes .filter(item => item.status === 'approved').map(item => <Card key={item._id} item={item}></Card>)
                }
           </div>
      );

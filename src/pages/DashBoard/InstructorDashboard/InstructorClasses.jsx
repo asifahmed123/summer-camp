@@ -9,6 +9,7 @@ const InstructorClasses = () => {
           const res = await axiosSecure.get(`/classes/${user?.email}`)
           return res.data;
      })
+     console.log(allclass);
      return (
           <div className="overflow-x-auto w-full">
                <table className="table">
@@ -55,7 +56,7 @@ const InstructorClasses = () => {
                                    <td>{item.availableSeats}</td>
                                    <td>{item.status}</td>
                                    <td>0</td>
-                                   <td><button className="btn btn-primary btn-sm">Feedback</button></td>
+                                   <td>{item.feedback}</td>
                                    <td><button className="btn btn-success btn-sm">Update</button></td>
 
                               </tr>

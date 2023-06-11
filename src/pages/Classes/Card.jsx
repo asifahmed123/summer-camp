@@ -33,7 +33,7 @@ const Card = ({ item }) => {
           <div key={item._id} className="card card-compact w-96 bg-base-100 shadow-xl">
                <figure><img src={item.image} alt="Shoes" /></figure>
                <div className="card-body">
-                    <h2 className="card-title">Class: {item.name}</h2>
+                    <h2 className="card-title">Class: {item.classname}</h2>
                     <p>Instructor Name: {item.instructor}</p>
                     <p>Available seats: {item.availableSeats}</p>
                     <p>Price: {item.price}</p>
