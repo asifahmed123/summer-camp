@@ -1,33 +1,26 @@
 
-import Swal from 'sweetalert2';
 import useAuth from '../../Hocks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import useAxiosSecure from '../../Hocks/useAxiosSecure';
+import { toast } from 'react-toastify';
 
 const Card = ({ item }) => {
      const { user } = useAuth();
      const navigate = useNavigate();
      const [axiosSecure] = useAxiosSecure();
-
+     
      const handleSelect = (id) => {
-          if (!user) {
-               Swal.fire({
-                    title: 'Need to Login!',
-                    text: "Do you want to Login?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, Login!'
-               }).then((result) => {
-                    if (result.isConfirmed) {
-                         navigate('/login')
-                    }
-               })
-          }
-          else {
-               ax
-          }
+          // const selected = item.filter(singleItem => singleItem._id === id)
+          console.log(item);
+          axiosSecure.post("/selectedclass", item).then((data) => {
+               if (data.data.message) {
+                 return toast.error("Class already added");
+               }
+         
+               if (data.data.insertedId) {
+                 toast.success("Class added");
+               }
+             });
      }
      return (
           <div key={item._id} className="card card-compact w-96 bg-base-100 shadow-xl">
