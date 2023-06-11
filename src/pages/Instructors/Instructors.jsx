@@ -8,6 +8,7 @@ const Instructors = () => {
                return res.json()
           }
      })
+     console.log(instructors);
      return (
           <>
                <div  className="grid lg:grid-cols-3">

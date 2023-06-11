@@ -1,12 +1,16 @@
 import { useQuery } from "react-query";
+import useAxiosSecure from "../../../Hocks/useAxiosSecure";
+import useAuth from "../../../Hocks/useAuth";
 
 const ManageUsers = () => {
-  
+     const {loading} = useAuth()
+     const [axiosSecure] = useAxiosSecure()
      const { data: users = [], refetch } = useQuery({
           queryKey: ['users'],
+          enabled: !loading,
           queryFn: async () => {
-               const res = await fetch('http://localhost:5000/users')
-               return res.json()
+               const res = await axiosSecure.get('/users')
+               return res.data;
           }
 
      })

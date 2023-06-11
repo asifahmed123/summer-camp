@@ -3,12 +3,14 @@ import { FaHome } from "react-icons/fa";
 import Navbar from "../Shared/Navbar/Navbar";
 import Footer from "../Shared/Footer/Footer";
 import useAdmin from "../Hocks/useAdmin";
+import useInstructor from "../Hocks/useInstructor";
 
 
 const Dashboard = () => {
 
      const [isAdmin] = useAdmin();
-     const isInstructor = true;
+     const [isInstructor] = useInstructor();
+
      return (
           <>
                <Navbar></Navbar>
@@ -36,9 +38,15 @@ const Dashboard = () => {
                                         <li><NavLink to='/dashboard/manageclasses'>Manage Classes</NavLink></li>
                                    </>
                               }
-                              <li><NavLink to='/dashboard/studentclasses'>My Selected Classes</NavLink></li>
-                              <li><NavLink to='/dashboard/enrolledclasses'>My Enrolled Classes</NavLink></li>
-                              <li><NavLink to='/dashboard/paymenthistory'>Payment History</NavLink></li>
+                              {
+                                   !isAdmin && !isInstructor &&
+                                   <>
+                                        <li><NavLink to='/dashboard/studentclasses'>My Selected Classes</NavLink></li>
+                                        <li><NavLink to='/dashboard/enrolledclasses'>My Enrolled Classes</NavLink></li>
+                                        <li><NavLink to='/dashboard/paymenthistory'>Payment History</NavLink></li>
+                                   </>
+
+                              }
                               <div className="divider"></div>
                               <li><NavLink to='/'><FaHome></FaHome> Home</NavLink></li>
                          </ul>

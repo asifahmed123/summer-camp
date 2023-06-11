@@ -9,7 +9,7 @@ const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
      const [user, setUser] = useState(null)
-     const [loading, setLoading] = useState(false)
+     const [loading, setLoading] = useState(true)
 
      const loginUser = (email, password) => {
           setLoading(true)
@@ -42,13 +42,13 @@ const AuthProvider = ({ children }) => {
                if (currentUser) {
                     axios.post('http://localhost:5000/jwt', { email: currentUser?.email })
                          .then(data => {
-                              console.log(data.data.token);
                               localStorage.setItem('access_token', data.data.token)
                               setLoading(false)
                          })
                }
                else {
                     localStorage.removeItem('access_token')
+                    // setLoading(false)
                }
           })
           return () => {
