@@ -1,4 +1,5 @@
 
+import { toast } from 'react-toastify';
 import useAxiosSecure from '../../Hocks/useAxiosSecure';
 
 
@@ -6,13 +7,32 @@ const Card = ({ item }) => {
      const [axiosSecure] = useAxiosSecure();
 
      const handleSelect = () => {
-
-          axiosSecure.post("/selectedclass", item).then((data) => {
+          const {image, name, price, instructor, availableSeats, classname, status, feedback} = item;
+          const newItem = {image, name, price, instructor, availableSeats, classname, status, feedback}
+          axiosSecure.post("/selectedclass", newItem).then((data) => {
                if (data.data.insertedId) {
-                    alert('class added successful')
+                    toast('class added successful!', {
+                         position: "top-center",
+                         autoClose: 3000,
+                         hideProgressBar: false,
+                         closeOnClick: true,
+                         pauseOnHover: true,
+                         draggable: true,
+                         progress: undefined,
+                         theme: "light",
+                    });
                }
           }).catch(error => {
-               alert(error.response.data)
+               toast.error(error.response.data, {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+               });
           })
      }
      return (

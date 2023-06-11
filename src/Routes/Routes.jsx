@@ -16,6 +16,7 @@ import Instructors from "../pages/Instructors/Instructors";
 import InstructorRoute from "./InstructorRoute";
 import AdminRoute from "./AdminRoute";
 import Feedback from "../pages/DashBoard/AdminDashboard/Feedback";
+import Payment from "../pages/DashBoard/StudentDashboard/Payment/Payment";
 
 
 
@@ -61,6 +62,10 @@ export const router = createBrowserRouter([
                {
                     path: 'paymenthistory',
                     element: <PaymentHistory></PaymentHistory>
+               },
+               {
+                    path: 'payment',
+                    element: <Payment></Payment>
                },
                // admin routes //
                {
