@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import useAxiosSecure from "../../../Hocks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 
 const ManageClasses = () => {
@@ -37,9 +38,9 @@ const ManageClasses = () => {
      }
 
      const handleDenied = (id) => {
-          const updateApp = { status: 'denied' };
+          const updateStatus = { status: 'denied' };
           axiosSecure
-               .patch(`/classes/${id}`, updateApp)
+               .patch(`/classes/${id}`, updateStatus)
                .then((response) => {
                     if (response.data.modifiedCount > 0) {
 
@@ -106,9 +107,11 @@ const ManageClasses = () => {
                                    <button onClick={() => handleDenied(item._id)} className="btn btn-warning btn-xs">
                                         Deny
                                    </button>
-                                   <button className="btn btn-info btn-xs">
-                                        Send Feedback
-                                   </button>
+                                   <Link to={`/dashboard/feedback/${item._id}`}>
+                                        <button className="btn btn-info btn-xs">
+                                             Send Feedback
+                                        </button>
+                                   </Link>
                               </td>
                          </tr>)}
 
