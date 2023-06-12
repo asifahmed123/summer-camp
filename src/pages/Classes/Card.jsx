@@ -10,9 +10,9 @@ const Card = ({ item }) => {
 
      const handleSelect = () => {
 
-          const { image, name, price, instructor, availableSeats, classname, status, feedback } = item;
+          const { image, name, price, instructor, availableSeats, classname, status, feedback, selectedStudentsNumber } = item;
 
-          const newItem = { email: user?.email, image, name, price, instructor, availableSeats, classname, status, feedback }
+          const newItem = { email: user?.email, image, name, price, instructor, availableSeats, classname, status, feedback, selectedStudentsNumber }
 
           axiosSecure.post("/selectedclass", newItem).then((data) => {
                if (data.data.insertedId) {
@@ -46,6 +46,7 @@ const Card = ({ item }) => {
                <div className="card-body">
                     <h2 className="card-title">Class: {item.classname}</h2>
                     <p>Instructor Name: {item.instructor}</p>
+                    <p>selected: {item.selectedStudentsNumber}</p>
                     <p>Available seats: {item.availableSeats}</p>
                     <p>Price: {item.price}</p>
                     <div className="card-actions justify-end">

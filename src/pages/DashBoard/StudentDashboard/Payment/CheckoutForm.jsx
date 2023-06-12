@@ -14,6 +14,7 @@ const CheckoutForm = ({ price, item }) => {
      const [clientSecret, setClientSecret] = useState("");
      const [processing, setProcessing] = useState(false);
      const [transactionId, setTransactionId] = useState('');
+     const [paymentStatus, setPaymentStatus] = useState(false)
 
      useEffect(() => {
           if(price > 0){
@@ -71,6 +72,7 @@ const CheckoutForm = ({ price, item }) => {
           console.log(paymentIntent);
           setProcessing(false);
           if(paymentIntent.status === 'succeeded'){
+               setPaymentStatus(true)
                setTransactionId(paymentIntent.id)
                const payment = {
                     email: user?.email,
@@ -79,7 +81,8 @@ const CheckoutForm = ({ price, item }) => {
                     price,
                     availableSeats: item.availableSeats,
                     date: new Date(),
-                    id: item._id
+                    id: item._id,
+                    enrolledStuNum: item.enrolledStuNum || 0
                }
                axiosSecure.post('/payments', payment)
                .then(res => {
@@ -109,7 +112,7 @@ const CheckoutForm = ({ price, item }) => {
                               },
                          }}
                     />
-                    <button className="btn btn-success btn-sm mt-4" type="submit" disabled={!stripe || !clientSecret || processing}>
+                    <button className="btn btn-success btn-sm mt-4" type="submit" disabled={!stripe || !clientSecret || processing || paymentStatus}>
                          Pay
                     </button>
                </form>

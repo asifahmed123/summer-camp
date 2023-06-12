@@ -2,10 +2,11 @@ import { useQuery } from "react-query";
 import useAxiosSecure from "../../../Hocks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 
 const ManageClasses = () => {
-
+     const [status, setStatus] = useState('enabled')
      const [axiosSecure] = useAxiosSecure();
      const { data: classes = [], refetch } = useQuery({
           queryKey: ['status'],
@@ -29,6 +30,7 @@ const ManageClasses = () => {
                               showConfirmButton: false,
                               timer: 1500,
                          });
+                         setStatus(`disabled_${id}`)
                          refetch();
                     }
                })
@@ -51,6 +53,7 @@ const ManageClasses = () => {
                               showConfirmButton: false,
                               timer: 1500,
                          });
+                         setStatus(`disabled_${id}`)
                          refetch();
                     }
                })
@@ -101,10 +104,10 @@ const ManageClasses = () => {
                               <td className="text-end">{item.price}</td>
                               <td>{item.status}</td>
                               <td className="flex flex-col gap-2">
-                                   <button onClick={() => handleApprove(item._id)} className="btn btn-success btn-xs">
+                                   <button disabled={ item.status==='approved'|| item.status==='denied'? true : false} onClick={() => handleApprove(item._id)} className="btn btn-success btn-xs">
                                         Approve
                                    </button>
-                                   <button onClick={() => handleDenied(item._id)} className="btn btn-warning btn-xs">
+                                   <button disabled={ item.status==='denied'|| item.status==='approved'? true : false} onClick={() => handleDenied(item._id)} className="btn btn-warning btn-xs">
                                         Deny
                                    </button>
                                    <Link to={`/dashboard/feedback/${item._id}`}>

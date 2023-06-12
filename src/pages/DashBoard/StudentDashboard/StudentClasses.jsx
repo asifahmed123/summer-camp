@@ -17,10 +17,10 @@ const StudentClasses = () => {
      })
      
 
-     const handleDelete = (id) => {
-          console.log(id);
+     const handleDelete = (item) => {
+          console.log(item);
 
-          axiosSecure.delete(`/selectedclass/${id}`)
+          axiosSecure.post('/selectedclassd', item)
           .then(data => {
                refetch();
                console.log(data.data);
@@ -60,7 +60,7 @@ const StudentClasses = () => {
                               <td>{item.availableSeats}</td>
                               <td>{item.price}</td>
                               <td><Link to={`/dashboard/payment/${item._id}`}><button className="btn btn-info btn-sm">Pay</button></Link></td>
-                              <td><button onClick={() => handleDelete(item._id)} className="btn btn-warning btn-sm">Delete</button></td>
+                              <td><button onClick={() => handleDelete(item)} className="btn btn-warning btn-sm">Delete</button></td>
                          </tr>)}
                          
                     </tbody>

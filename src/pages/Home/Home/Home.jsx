@@ -1,8 +1,11 @@
+import TopClass from "../../TopClass/TopClass";
+import TopInstructor from "../../TopInstructor/TopInstructor";
 
 const Home = () => {
      return (
           <div>
-               <h2>This is home</h2>
+               <TopClass></TopClass>
+               <TopInstructor></TopInstructor>
           </div>
      );
 };

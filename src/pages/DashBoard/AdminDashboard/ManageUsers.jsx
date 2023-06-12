@@ -1,9 +1,12 @@
 import { useQuery } from "react-query";
 import useAxiosSecure from "../../../Hocks/useAxiosSecure";
 import useAuth from "../../../Hocks/useAuth";
+import { useState } from "react";
 
 const ManageUsers = () => {
      const {loading} = useAuth()
+     const [role, setRole] = useState('student');
+
      const [axiosSecure] = useAxiosSecure()
      const { data: users = [], refetch } = useQuery({
           queryKey: ['users'],
@@ -22,6 +25,7 @@ const ManageUsers = () => {
                .then(res => res.json())
                .then(data => {
                     refetch()
+                    setRole(`admin_${id}`)
                     console.log(data)
                })
      }
@@ -33,6 +37,7 @@ const ManageUsers = () => {
                .then(res => res.json())
                .then(data => {
                     refetch()
+                    setRole(`instructor_${id}`)
                     console.log(data);
                })
      }
@@ -59,12 +64,11 @@ const ManageUsers = () => {
                                    <th>{index + 1}</th>
                                    <td>{user.name}</td>
                                    <td>{user.email}</td>
-                                   {/* {user.role === 'admin'? <td>Admin</td> : <td>Make admin</td>}
-                                   {user.role === 'instructor'? <td>instructor</td> : <td>Make instructor</td>} */}
-                                   <td>{user.role === 'admin' ? 'admin' : <button onClick={() => handleMakeAdmin(user._id)} className="btn btn-active btn-secondary btn-sm">Make Admin</button>}</td>
+                                   
+                                   <td><button disabled={role === `admin_${user._id}`|| user.role==='admin'? true : false} onClick={() => handleMakeAdmin(user._id)} className="btn btn-active btn-secondary btn-sm">Make Admin</button></td>
 
 
-                                   <td>{user.role === 'instructor' ? 'instructor' : <button onClick={() => handleMakeInstructor(user._id)} className="btn btn-active btn-secondary btn-sm">Make Instructor</button>}</td>
+                                   <td><button disabled={role === `instructor_${user._id}`|| user.role==='instructor'? true : false} onClick={() => handleMakeInstructor(user._id)} className="btn btn-active btn-secondary btn-sm">Make Instructor</button></td>
                               </tr>)}
 
                          </tbody>
