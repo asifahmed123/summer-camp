@@ -4,7 +4,7 @@ import useAuth from "../../../Hocks/useAuth";
 import { useState } from "react";
 
 const ManageUsers = () => {
-     const {loading} = useAuth()
+     const { loading } = useAuth()
      const [role, setRole] = useState('student');
 
      const [axiosSecure] = useAxiosSecure()
@@ -64,11 +64,11 @@ const ManageUsers = () => {
                                    <th>{index + 1}</th>
                                    <td>{user.name}</td>
                                    <td>{user.email}</td>
-                                   
-                                   <td><button disabled={role === `admin_${user._id}`|| user.role==='admin'? true : false} onClick={() => handleMakeAdmin(user._id)} className="btn btn-active btn-secondary btn-sm">Make Admin</button></td>
+
+                                   <td><button disabled={role === `admin_${user._id}` || user.role === 'admin' ? true : false} onClick={() => handleMakeAdmin(user._id)} className="btn btn-active btn-secondary btn-sm">Make Admin</button></td>
 
 
-                                   <td><button disabled={role === `instructor_${user._id}`|| user.role==='instructor'? true : false} onClick={() => handleMakeInstructor(user._id)} className="btn btn-active btn-secondary btn-sm">Make Instructor</button></td>
+                                   <td><button disabled={role === `instructor_${user._id}` || user.role === 'instructor' ? true : false} onClick={() => handleMakeInstructor(user._id)} className="btn btn-active btn-secondary btn-sm">Make Instructor</button></td>
                               </tr>)}
 
                          </tbody>
