@@ -64,7 +64,7 @@ export const router = createBrowserRouter([
                     element: <PaymentHistory></PaymentHistory>
                },
                {
-                    path: 'payment',
+                    path: 'payment/:id',
                     element: <Payment></Payment>
                },
                // admin routes //

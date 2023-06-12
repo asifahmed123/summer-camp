@@ -1,16 +1,21 @@
 import { useQuery } from "react-query";
 import useAxiosSecure from "../../../Hocks/useAxiosSecure";
 import { Link } from "react-router-dom";
+import useAuth from "../../../Hocks/useAuth";
 
 const StudentClasses = () => {
+     const {user, loading} = useAuth();
      const [axiosSecure] = useAxiosSecure();
+
      const { data: classes = [], refetch } = useQuery({
           queryKey: ['selectedclass'],
+          enabled: !loading,
           queryFn: async () => {
-               const res = await axiosSecure.get('/selectedclass')
+               const res = await axiosSecure.get(`/selectedclass/${user?.email}`)
                return res.data
           }
      })
+     
 
      const handleDelete = (id) => {
           console.log(id);
@@ -54,7 +59,7 @@ const StudentClasses = () => {
                               </td>
                               <td>{item.availableSeats}</td>
                               <td>{item.price}</td>
-                              <td><Link to='/dashboard/payment'><button className="btn btn-info btn-sm">Pay</button></Link></td>
+                              <td><Link to={`/dashboard/payment/${item._id}`}><button className="btn btn-info btn-sm">Pay</button></Link></td>
                               <td><button onClick={() => handleDelete(item._id)} className="btn btn-warning btn-sm">Delete</button></td>
                          </tr>)}
                          

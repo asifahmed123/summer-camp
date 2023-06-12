@@ -1,14 +1,19 @@
 
 import { toast } from 'react-toastify';
 import useAxiosSecure from '../../Hocks/useAxiosSecure';
+import useAuth from '../../Hocks/useAuth';
 
 
 const Card = ({ item }) => {
+     const { user } = useAuth();
      const [axiosSecure] = useAxiosSecure();
 
      const handleSelect = () => {
-          const {image, name, price, instructor, availableSeats, classname, status, feedback} = item;
-          const newItem = {image, name, price, instructor, availableSeats, classname, status, feedback}
+
+          const { image, name, price, instructor, availableSeats, classname, status, feedback } = item;
+
+          const newItem = { email: user?.email, image, name, price, instructor, availableSeats, classname, status, feedback }
+
           axiosSecure.post("/selectedclass", newItem).then((data) => {
                if (data.data.insertedId) {
                     toast('class added successful!', {
