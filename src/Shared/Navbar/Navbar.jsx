@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import useAuth from "../../Hocks/useAuth";
+import DarkMode from "../../components/DarkMode";
 
 const Navbar = () => {
      const { user, logOut } = useAuth();
@@ -10,6 +11,7 @@ const Navbar = () => {
           {
                user && <li><Link to='/dashboard'>Dashboard</Link></li>
           }
+          <li><DarkMode></DarkMode></li>
      </>
      const handleLogOut = () => {
           logOut()
@@ -17,7 +19,7 @@ const Navbar = () => {
 
      return (
           <>
-               <div className="navbar">
+               <div className="navbar bg-[--nav-bg]">
                     <div className="navbar-start">
                          <div className="dropdown">
                               <label tabIndex={0} className="btn btn-ghost lg:hidden">

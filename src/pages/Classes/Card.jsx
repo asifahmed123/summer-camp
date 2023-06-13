@@ -17,7 +17,7 @@ const Card = ({ item }) => {
           axiosSecure.post("/selectedclass", newItem).then((data) => {
                if (data.data.insertedId) {
                     toast('class added successful!', {
-                         position: "top-center",
+                         position: "top-right",
                          autoClose: 3000,
                          hideProgressBar: false,
                          closeOnClick: true,
@@ -29,7 +29,7 @@ const Card = ({ item }) => {
                }
           }).catch(error => {
                toast.error(error.response.data, {
-                    position: "top-center",
+                    position: "top-right",
                     autoClose: 3000,
                     hideProgressBar: false,
                     closeOnClick: true,

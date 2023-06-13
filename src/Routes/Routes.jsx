@@ -17,7 +17,7 @@ import InstructorRoute from "./InstructorRoute";
 import AdminRoute from "./AdminRoute";
 import Feedback from "../pages/DashBoard/AdminDashboard/Feedback";
 import Payment from "../pages/DashBoard/StudentDashboard/Payment/Payment";
-import TopInstructor from "../pages/TopInstructor/TopInstructor";
+
 
 
 

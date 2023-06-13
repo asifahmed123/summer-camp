@@ -74,6 +74,7 @@ const CheckoutForm = ({ price, item }) => {
           if(paymentIntent.status === 'succeeded'){
                setPaymentStatus(true)
                setTransactionId(paymentIntent.id)
+
                const payment = {
                     email: user?.email,
                     transactionId: paymentIntent.id,
@@ -82,9 +83,11 @@ const CheckoutForm = ({ price, item }) => {
                     availableSeats: item.availableSeats,
                     date: new Date(),
                     id: item._id,
-                    enrolledStuNum: item.enrolledStuNum || 0
+                    // enrolledStuNum: item.enrolledStuNum || +1
+                    enrolledStuNum: 1 
                }
-               axiosSecure.post('/payments', payment)
+
+               axiosSecure.patch('/payments', payment)
                .then(res => {
                     if(res.data.insertedId){
                          // confirm 
