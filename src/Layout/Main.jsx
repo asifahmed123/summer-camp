@@ -8,7 +8,7 @@ const Main = () => {
      return (
           <div className="max-w-[2520] mx-auto px-4 lg:px-20 md:px-10">
                <Navbar></Navbar>
-               <div className="pt-20 pb-10">
+               <div className="pt-10 pb-10 bg-[--main-heading]">
                     <Outlet></Outlet>
                </div>
                <Footer></Footer>
