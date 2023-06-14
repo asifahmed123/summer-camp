@@ -2,6 +2,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../../Hocks/useAxiosSecure";
 import useAuth from "../../../../Hocks/useAuth";
+import Swal from "sweetalert2";
 
 const CheckoutForm = ({ price, item }) => {
      console.log(price);
@@ -79,18 +80,24 @@ const CheckoutForm = ({ price, item }) => {
                     email: user?.email,
                     transactionId: paymentIntent.id,
                     classname: item.classname,
+                    image: item.image,
                     price,
                     availableSeats: item.availableSeats,
                     date: new Date(),
                     id: item._id,
-                    // enrolledStuNum: item.enrolledStuNum || +1
                     enrolledStuNum: 1 
                }
 
                axiosSecure.patch('/payments', payment)
                .then(res => {
-                    if(res.data.insertedId){
-                         // confirm 
+                    if(res.data.updatePaymentResult.modifiedCount){
+                         Swal.fire({
+                              position: 'top-end',
+                              icon: 'success',
+                              title: 'Payment Successful',
+                              showConfirmButton: false,
+                              timer: 1500
+                            })
                     }
                })
           }

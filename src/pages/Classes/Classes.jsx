@@ -5,14 +5,15 @@ import Card from "./Card";
 const Classes = () => {
      
      const [axiosSecure] = useAxiosSecure();
-     const { data: classes = [] } = useQuery({
+     const { data: classes = [], refetch } = useQuery({
           queryKey: ['classes'],
           queryFn: async () => {
                const res = await axiosSecure.get('/classes')
                return res.data
           }
+          
      })
-
+     refetch()
      
 
      return (

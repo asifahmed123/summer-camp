@@ -2,10 +2,14 @@
 import { toast } from 'react-toastify';
 import useAxiosSecure from '../../Hocks/useAxiosSecure';
 import useAuth from '../../Hocks/useAuth';
+import useAdmin from '../../Hocks/useAdmin';
+import useInstructor from '../../Hocks/useInstructor';
 
 
 const Card = ({ item }) => {
      const { user } = useAuth();
+     const [isAdmin] = useAdmin();
+     const [isInstructor] = useInstructor();
      const [axiosSecure] = useAxiosSecure();
 
      const handleSelect = () => {
@@ -41,7 +45,7 @@ const Card = ({ item }) => {
           })
      }
      return (
-          <div key={item._id} className="card card-compact w-96 bg-base-100 shadow-xl">
+          <div key={item._id} className={`card card-compact w-96 bg-base-100 shadow-xl ${item.availableSeats === 0 && 'bg-red-500'}`}>
                <figure><img src={item.image} alt="Shoes" /></figure>
                <div className="card-body">
                     <h2 className="card-title">Class: {item.classname}</h2>
@@ -50,7 +54,7 @@ const Card = ({ item }) => {
                     <p>Available seats: {item.availableSeats}</p>
                     <p>Price: {item.price}</p>
                     <div className="card-actions justify-end">
-                         <button onClick={() => handleSelect(item._id)} className="btn btn-secondary">Select</button>
+                         <button disabled={isAdmin || isInstructor || item.availableSeats === 0} onClick={() => handleSelect(item._id)} className="btn btn-secondary">Select</button>
                     </div>
                </div>
           </div>
