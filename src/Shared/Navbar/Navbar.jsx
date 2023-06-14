@@ -30,6 +30,7 @@ const Navbar = () => {
                               </ul>
                          </div>
                          <img className="hidden md:block" src="https://img.freepik.com/free-vector/flat-design-track-field-logo_52683-78010.jpg?w=740&t=st=1686155359~exp=1686155959~hmac=c04fa260ac090cec09cbfb1340a7197e046ba97f5bae91a1fb99f22a66685743" width={80} alt="" />
+                         <h2 className="text-2xl font-semibold">Kids Arena</h2>
                     </div>
                     <div className="navbar-center hidden lg:flex">
                          <ul className="menu menu-horizontal px-1">

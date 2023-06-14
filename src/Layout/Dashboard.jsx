@@ -4,7 +4,7 @@ import Navbar from "../Shared/Navbar/Navbar";
 import Footer from "../Shared/Footer/Footer";
 import useAdmin from "../Hocks/useAdmin";
 import useInstructor from "../Hocks/useInstructor";
-
+import Flash from "react-awesome-reveal";
 
 const Dashboard = () => {
 
@@ -21,34 +21,38 @@ const Dashboard = () => {
                          <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
 
                     </div>
+
                     <div className="drawer-side">
                          <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                          <ul className="menu p-4 w-80 h-full font-semibold bg-blue-100">
-                              {
-                                   isInstructor &&
-                                   <>
-                                        <li><NavLink to='/dashboard/addclass'>Add a Class</NavLink></li>
-                                        <li><NavLink to='/dashboard/instructorclasses'>My Classes</NavLink></li>
-                                   </>
-                              }
-                              {
-                                   isAdmin &&
-                                   <>
-                                        <li><NavLink to='/dashboard/manageusers'>Manage Users</NavLink></li>
-                                        <li><NavLink to='/dashboard/manageclasses'>Manage Classes</NavLink></li>
-                                   </>
-                              }
-                              {
-                                   !isAdmin && !isInstructor &&
-                                   <>
-                                        <li><NavLink to='/dashboard/studentclasses'>My Selected Classes</NavLink></li>
-                                        <li><NavLink to='/dashboard/enrolledclasses'>My Enrolled Classes</NavLink></li>
-                                        <li><NavLink to='/dashboard/paymenthistory'>Payment History</NavLink></li>
-                                   </>
+                              <Flash>
+                                   {
+                                        isInstructor &&
+                                        <>
+                                             <li><NavLink to='/dashboard/addclass'>Add a Class</NavLink></li>
+                                             <li><NavLink to='/dashboard/instructorclasses'>My Classes</NavLink></li>
+                                        </>
+                                   }
+                                   {
+                                        isAdmin &&
+                                        <>
+                                             <li><NavLink to='/dashboard/manageusers'>Manage Users</NavLink></li>
+                                             <li><NavLink to='/dashboard/manageclasses'>Manage Classes</NavLink></li>
+                                        </>
+                                   }
+                                   {
+                                        !isAdmin && !isInstructor &&
+                                        <>
+                                             <li><NavLink to='/dashboard/studentclasses'>My Selected Classes</NavLink></li>
+                                             <li><NavLink to='/dashboard/enrolledclasses'>My Enrolled Classes</NavLink></li>
+                                             <li><NavLink to='/dashboard/paymenthistory'>Payment History</NavLink></li>
+                                        </>
 
-                              }
-                              <div className="divider"></div>
-                              <li><NavLink to='/'><FaHome></FaHome> Home</NavLink></li>
+                                   }
+                                   <div className="divider"></div>
+                                   <li><NavLink to='/'><FaHome></FaHome> Home</NavLink></li>
+                              </Flash>
+
                          </ul>
 
                     </div>
