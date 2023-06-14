@@ -40,7 +40,7 @@ const AuthProvider = ({ children }) => {
                setUser(currentUser)
                // set jwt access token //
                if (currentUser) {
-                    axios.post('http://localhost:5000/jwt', { email: currentUser?.email })
+                    axios.post('https://assignment-12-server-two-xi.vercel.app/jwt', { email: currentUser?.email })
                          .then(data => {
                               localStorage.setItem('access_token', data.data.token)
                               setLoading(false)

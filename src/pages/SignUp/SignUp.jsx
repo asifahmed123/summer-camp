@@ -20,9 +20,9 @@ const SignUp = () => {
                     console.log(result.user);
                     updateUser(data.name, data.photo)
                          .then(() => {
-                              const savedUser = { name: data.name, email: data.email, photo: data.photo}
+                              const savedUser = { name: data.name, email: data.email, photo: data.photo }
 
-                              fetch('http://localhost:5000/users', {
+                              fetch('https://assignment-12-server-two-xi.vercel.app/users', {
                                    method: 'POST',
                                    headers: {
                                         'content-type': 'application/json'
@@ -60,7 +60,7 @@ const SignUp = () => {
                     const loggedUser = result.user;
                     console.log(loggedUser);
                     const savedUser = { name: loggedUser.displayName, email: loggedUser.email, photo: loggedUser.photoURL }
-                    fetch('http://localhost:5000/users', {
+                    fetch('https://assignment-12-server-two-xi.vercel.app/users', {
                          method: 'POST',
                          headers: {
                               'content-type': 'application/json'

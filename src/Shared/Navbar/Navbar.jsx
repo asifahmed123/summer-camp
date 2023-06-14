@@ -1,15 +1,15 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import useAuth from "../../Hocks/useAuth";
 import DarkMode from "../../components/DarkMode";
 
 const Navbar = () => {
      const { user, logOut } = useAuth();
      const navItem = <>
-          <li><Link to='/'>Home</Link></li>
-          <li><Link to='/instructors'>Instructors</Link></li>
-          <li><Link to='/classes'>Classes</Link></li>
+          <li><NavLink to='/'>Home</NavLink></li>
+          <li><NavLink to='/instructors'>Instructors</NavLink></li>
+          <li><NavLink to='/classes'>Classes</NavLink></li>
           {
-               user && <li><Link to='/dashboard'>Dashboard</Link></li>
+               user && <li><NavLink to='/dashboard'>Dashboard</NavLink></li>
           }
           <li><DarkMode></DarkMode></li>
      </>
@@ -48,7 +48,7 @@ const Navbar = () => {
                                         </label>
                                    </> :
                                    <>
-                                        <Link to='/login'><button className="btn btn-ghost">Login</button></Link>
+                                        <NavLink to='/login'><button className="btn btn-ghost">Login</button></NavLink>
 
                                    </>
                               }

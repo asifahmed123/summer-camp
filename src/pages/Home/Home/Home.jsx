@@ -1,10 +1,11 @@
-import TopClass from "../../TopClass/TopClass";
-import TopInstructor from "../../TopInstructor/TopInstructor";
-import svg from '../../../assets/wave-haikei.svg';
+import Slider from "./Slider";
+import TopClass from "./TopClass/TopClass";
+import TopInstructor from "./TopInstructor/TopInstructor";
 
 const Home = () => {
      return (
-          <div style={{backgroundImage: `url(${svg})`}}>
+          <div>
+               <Slider></Slider>
                <TopClass></TopClass>
                <TopInstructor></TopInstructor>
           </div>

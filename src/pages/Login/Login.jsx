@@ -47,7 +47,7 @@ const Login = () => {
                     const loggedUser = result.user;
                     console.log(loggedUser);
                     const savedUser = { name: loggedUser.displayName, email: loggedUser.email, photo: loggedUser.photoURL }
-                    fetch('http://localhost:5000/users', {
+                    fetch('https://assignment-12-server-two-xi.vercel.app/users', {
                          method: 'POST',
                          headers: {
                               'content-type': 'application/json'
@@ -71,7 +71,7 @@ const Login = () => {
                     console.log(error.message);
                })
      }
-     
+
      return (
           <div className="hero min-h-screen bg-base-200">
                <div className="hero-content flex-col lg:flex-row-reverse">

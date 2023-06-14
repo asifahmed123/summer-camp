@@ -2,15 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-.drawer-side a.active {
+.a.active {
   color: var(--para-clr);
 }
 
-.drawer-side a {
+.a {
   background-color: transparent;
 }
 
-
+.card-style {
+  border-radius: 7px;
+  /* background: #e0e0e0; */
+  box-shadow:  5px -5px 14px #bebebe,
+               -5px 5px 14px #ffffff;
+}
 
 
 

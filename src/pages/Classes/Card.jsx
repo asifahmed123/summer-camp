@@ -45,7 +45,7 @@ const Card = ({ item }) => {
           })
      }
      return (
-          <div key={item._id} className={`card card-compact w-96 bg-base-100 shadow-xl ${item.availableSeats === 0 && 'bg-red-500'}`}>
+          <div key={item._id} className={`card card-compact w-96 bg-base-100 card-style shadow-xl ${item.availableSeats === 0 && 'bg-red-500'}`}>
                <figure><img src={item.image} alt="Shoes" /></figure>
                <div className="card-body">
                     <h2 className="card-title">Class: {item.classname}</h2>
